@@ -1,0 +1,268 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Api\\CasaticDirectorio.Api.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Api\\CasaticDirectorio.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Api\\CasaticDirectorio.Api.csproj",
+        "projectName": "CasaticDirectorio.Api",
+        "projectPath": "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Api\\CasaticDirectorio.Api.csproj",
+        "packagesPath": "C:\\Users\\Grupo B\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Api\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Grupo B\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Infrastructure\\CasaticDirectorio.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Infrastructure\\CasaticDirectorio.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            },
+            "Serilog.Sinks.PostgreSQL": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.9.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Domain\\CasaticDirectorio.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Domain\\CasaticDirectorio.Domain.csproj",
+        "projectName": "CasaticDirectorio.Domain",
+        "projectPath": "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Domain\\CasaticDirectorio.Domain.csproj",
+        "packagesPath": "C:\\Users\\Grupo B\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Grupo B\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Infrastructure\\CasaticDirectorio.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Infrastructure\\CasaticDirectorio.Infrastructure.csproj",
+        "projectName": "CasaticDirectorio.Infrastructure",
+        "projectPath": "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Infrastructure\\CasaticDirectorio.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Grupo B\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Grupo B\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Domain\\CasaticDirectorio.Domain.csproj": {
+                "projectPath": "C:\\Users\\Grupo B\\Desktop\\proyectyo casa tic\\casatic-directorio\\backend\\src\\CasaticDirectorio.Domain\\CasaticDirectorio.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
