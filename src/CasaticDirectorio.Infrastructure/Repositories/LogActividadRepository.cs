@@ -9,7 +9,6 @@ namespace CasaticDirectorio.Infrastructure.Repositories;
 public class LogActividadRepository : ILogActividadRepository
 {
     private readonly AppDbContext _db;
-
     public LogActividadRepository(AppDbContext db) => _db = db;
 
     public async Task AddAsync(LogActividad log)
@@ -18,28 +17,44 @@ public class LogActividadRepository : ILogActividadRepository
         await _db.SaveChangesAsync();
     }
 
-    public async Task<List<LogActividad>> GetRecentAsync(int count = 50)
-        => await _db.LogsActividad
+    public async Task<List<LogActividad>> GetByTipoAsync(
+        TipoEvento tipo, DateTime desde, DateTime hasta) =>
+        await _db.LogsActividad
+            .Where(l => l.TipoEvento == tipo && l.Fecha >= desde && l.Fecha <= hasta)
             .OrderByDescending(l => l.Fecha)
-            .Take(count)
             .ToListAsync();
 
     public async Task<int> CountByTipoAsync(
-        string tipo, DateTime? desde = null)
-    {
-        var q = _db.LogsActividad
-            .Where(l => l.TipoEvento.ToString() == tipo);
+        TipoEvento tipo, DateTime desde, DateTime hasta) =>
+        await _db.LogsActividad
+            .CountAsync(l => l.TipoEvento == tipo && l.Fecha >= desde && l.Fecha <= hasta);
 
-        if (desde.HasValue)
-            q = q.Where(l => l.Fecha >= desde.Value);
-
-        return await q.CountAsync();
-    }
-
-    public async Task<List<LogActividad>> GetByFechaRangeAsync(
-        DateTime desde, DateTime hasta)
-        => await _db.LogsActividad
-            .Where(l => l.Fecha >= desde && l.Fecha <= hasta)
-            .OrderBy(l => l.Fecha)
+    public async Task<List<LogActividad>> GetBySocioAsync(
+        Guid socioId, DateTime desde, DateTime hasta) =>
+        await _db.LogsActividad
+            .Where(l => l.SocioId == socioId && l.Fecha >= desde && l.Fecha <= hasta)
+            .OrderByDescending(l => l.Fecha)
             .ToListAsync();
+
+    public async Task<Dictionary<string, int>> GetLoginsPorUsuarioAsync(
+        DateTime desde, DateTime hasta)
+    {
+        var logins = await _db.LogsActividad
+            .Where(l => l.TipoEvento == TipoEvento.Login && l.Fecha >= desde && l.Fecha <= hasta)
+            .GroupBy(l => l.UsuarioId)
+            .Select(g => new { UsuarioId = g.Key, Count = g.Count() })
+            .ToListAsync();
+
+        // Obtener emails
+        var userIds = logins.Where(l => l.UsuarioId.HasValue).Select(l => l.UsuarioId!.Value).ToList();
+        var users = await _db.Usuarios
+            .Where(u => userIds.Contains(u.Id))
+            .ToDictionaryAsync(u => u.Id, u => u.Email);
+
+        return logins.ToDictionary(
+            l => l.UsuarioId.HasValue && users.ContainsKey(l.UsuarioId.Value)
+                ? users[l.UsuarioId.Value]
+                : "Anónimo",
+            l => l.Count);
+    }
 }

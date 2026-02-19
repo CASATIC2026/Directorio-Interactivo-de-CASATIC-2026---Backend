@@ -1,40 +1,54 @@
 using CasaticDirectorio.Domain.Entities;
-using CasaticDirectorio.Domain.Enums;
 using CasaticDirectorio.Domain.Interfaces;
 using CasaticDirectorio.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using NpgsqlTypes;
+using Microsoft.EntityFrameworkCore;    
 
 namespace CasaticDirectorio.Infrastructure.Repositories;
 
 public class SocioRepository : ISocioRepository
 {
     private readonly AppDbContext _db;
-
     public SocioRepository(AppDbContext db) => _db = db;
 
-    public async Task<(List<Socio> Items, int Total)> SearchAsync(
-        string? query, string? especialidad, int page, int pageSize)
-    {
-        // Base: solo socios habilitados y al día
-        var q = _db.Socios.AsQueryable()
-            .Where(s => s.Habilitado && 
-                        s.EstadoFinanciero == EstadoFinanciero.AlDia);
+    public async Task<Socio?> GetByIdAsync(Guid id) =>
+        await _db.Socios.FindAsync(id);
 
-        // ★ Full-Text Search con el operador @@ de PostgreSQL
+    public async Task<Socio?> GetBySlugAsync(string slug) =>
+        await _db.Socios.FirstOrDefaultAsync(s => s.Slug == slug);
+
+    /// <summary>
+    /// Búsqueda paginada con Full-Text Search (PostgreSQL to_tsquery)
+    /// y filtro opcional por especialidad.
+    /// </summary>
+    public async Task<(List<Socio> Items, int Total)> SearchAsync(
+        string? query, string? especialidad, string? servicio, int page, int pageSize)
+    {
+        var q = _db.Socios.AsQueryable();
+
+        // Solo mostrar socios habilitados y al día en el portal público
+        q = q.Where(s => s.Habilitado && s.EstadoFinanciero == Domain.Enums.EstadoFinanciero.AlDia);
+
+        // Full-Text Search con índice GIN
         if (!string.IsNullOrWhiteSpace(query))
         {
-            q = q.Where(s => s.SearchVector!.Matches(
-                EF.Functions.PlainToTsQuery("spanish", query)));
+            var tsQuery = EF.Functions.ToTsQuery("spanish", string.Join(" & ", query.Trim().Split(' ')));
+            q = q.Where(s => s.SearchVector!.Matches(tsQuery));
         }
 
-        // Filtro por especialidad (buscar dentro del array text[])
+        // Filtro por especialidad (ANY en el array PostgreSQL)
         if (!string.IsNullOrWhiteSpace(especialidad))
         {
             q = q.Where(s => s.Especialidades.Contains(especialidad));
         }
 
+        // Filtro por servicio (ANY en el array PostgreSQL)
+        if (!string.IsNullOrWhiteSpace(servicio))
+        {
+            q = q.Where(s => s.Servicios.Contains(servicio));
+        }
+
         var total = await q.CountAsync();
+
         var items = await q
             .OrderBy(s => s.NombreEmpresa)
             .Skip((page - 1) * pageSize)
@@ -44,28 +58,20 @@ public class SocioRepository : ISocioRepository
         return (items, total);
     }
 
-    public async Task<Socio?> GetBySlugAsync(string slug)
-        => await _db.Socios.FirstOrDefaultAsync(s => s.Slug == slug);
+    public async Task<List<Socio>> GetAllAsync() =>
+        await _db.Socios.OrderBy(s => s.NombreEmpresa).ToListAsync();
 
-    public async Task<Socio?> GetByIdAsync(Guid id)
-        => await _db.Socios.FindAsync(id);
-
-    public async Task<List<Socio>> GetAllAsync()
-        => await _db.Socios.OrderBy(s => s.NombreEmpresa).ToListAsync();
-
-    public async Task<Socio> CreateAsync(Socio socio)
+    public async Task AddAsync(Socio socio)
     {
         _db.Socios.Add(socio);
         await _db.SaveChangesAsync();
-        return socio;
     }
 
-    public async Task<Socio> UpdateAsync(Socio socio)
+    public async Task UpdateAsync(Socio socio)
     {
         socio.UpdatedAt = DateTime.UtcNow;
         _db.Socios.Update(socio);
         await _db.SaveChangesAsync();
-        return socio;
     }
 
     public async Task DeleteAsync(Guid id)

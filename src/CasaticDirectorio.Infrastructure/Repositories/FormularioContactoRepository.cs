@@ -8,29 +8,28 @@ namespace CasaticDirectorio.Infrastructure.Repositories;
 public class FormularioContactoRepository : IFormularioContactoRepository
 {
     private readonly AppDbContext _db;
-
     public FormularioContactoRepository(AppDbContext db) => _db = db;
 
-    public async Task<FormularioContacto> CreateAsync(
-        FormularioContacto formulario)
+    public async Task AddAsync(FormularioContacto formulario)
     {
         _db.FormulariosContacto.Add(formulario);
         await _db.SaveChangesAsync();
-        return formulario;
     }
 
-    public async Task<List<FormularioContacto>> GetBySocioIdAsync(
-        Guid socioId)
-        => await _db.FormulariosContacto
+    public async Task<List<FormularioContacto>> GetBySocioAsync(Guid socioId) =>
+        await _db.FormulariosContacto
             .Where(f => f.SocioId == socioId)
             .OrderByDescending(f => f.Fecha)
             .ToListAsync();
 
-    public async Task<int> CountAsync(DateTime? desde = null)
-    {
-        var q = _db.FormulariosContacto.AsQueryable();
-        if (desde.HasValue)
-            q = q.Where(f => f.Fecha >= desde.Value);
-        return await q.CountAsync();
-    }
+    public async Task<int> CountAsync(DateTime desde, DateTime hasta) =>
+        await _db.FormulariosContacto
+            .CountAsync(f => f.Fecha >= desde && f.Fecha <= hasta);
+
+    public async Task<List<FormularioContacto>> GetAllAsync(DateTime desde, DateTime hasta) =>
+        await _db.FormulariosContacto
+            .Include(f => f.Socio)
+            .Where(f => f.Fecha >= desde && f.Fecha <= hasta)
+            .OrderByDescending(f => f.Fecha)
+            .ToListAsync();
 }

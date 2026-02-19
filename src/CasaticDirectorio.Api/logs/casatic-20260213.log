@@ -1,0 +1,265 @@
+2026-02-13 09:00:48.453 -06:00 [INF] 🚀 Directorio Interactivo CASATIC 2026 iniciado
+2026-02-13 09:02:00.462 -06:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 138.6197 ms
+2026-02-13 09:02:53.221 -06:00 [INF] HTTP GET /api/directorio responded 200 in 188.3777 ms
+2026-02-13 09:03:00.832 -06:00 [INF] Log: "Login" | Query: null | SocioId: null
+2026-02-13 09:03:00.837 -06:00 [INF] HTTP POST /api/auth/login responded 200 in 243.6616 ms
+2026-02-13 09:03:08.200 -06:00 [ERR] HTTP GET /api/reportes/dashboard responded 500 in 120.3858 ms
+System.InvalidOperationException: The LINQ expression 'DbSet<LogActividad>()
+    .Where(l => (int)l.TipoEvento == 1 && l.Fecha >= __inicioMes_0)
+    .GroupBy(l => l.Fecha.Date)
+    .Select(g => new VisitaDiariaDto{ 
+        Fecha = g.Key.ToString("yyyy-MM-dd"), 
+        Cantidad = g
+            .AsQueryable()
+            .Count() 
+    }
+    )
+    .OrderBy(e0 => e0.Fecha)' could not be translated. Additional information: Translation of method 'System.DateTime.ToString' failed. If this method can be mapped to your custom function, see https://go.microsoft.com/fwlink/?linkid=2132413 for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass12_0`1.<ExecuteAsync>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at CasaticDirectorio.Api.Controllers.ReportesController.GetDashboard() in C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Api\Controllers\ReportesController.cs:line 67
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-02-13 09:03:08.228 -06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The LINQ expression 'DbSet<LogActividad>()
+    .Where(l => (int)l.TipoEvento == 1 && l.Fecha >= __inicioMes_0)
+    .GroupBy(l => l.Fecha.Date)
+    .Select(g => new VisitaDiariaDto{ 
+        Fecha = g.Key.ToString("yyyy-MM-dd"), 
+        Cantidad = g
+            .AsQueryable()
+            .Count() 
+    }
+    )
+    .OrderBy(e0 => e0.Fecha)' could not be translated. Additional information: Translation of method 'System.DateTime.ToString' failed. If this method can be mapped to your custom function, see https://go.microsoft.com/fwlink/?linkid=2132413 for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass12_0`1.<ExecuteAsync>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at CasaticDirectorio.Api.Controllers.ReportesController.GetDashboard() in C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Api\Controllers\ReportesController.cs:line 67
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-02-13 09:05:00.507 -06:00 [INF] 🚀 Directorio Interactivo CASATIC 2026 iniciado
+2026-02-13 09:06:05.122 -06:00 [INF] Log: "Login" | Query: null | SocioId: null
+2026-02-13 09:06:05.140 -06:00 [INF] HTTP POST /api/auth/login responded 200 in 477.4961 ms
+2026-02-13 09:06:05.348 -06:00 [INF] HTTP GET /api/reportes/dashboard responded 200 in 171.3377 ms
+2026-02-13 09:06:11.262 -06:00 [INF] Log: "VisitaMicroSitio" | Query: null | SocioId: "37b9713f-4685-453b-9c2d-2f242e2c833c"
+2026-02-13 09:06:11.274 -06:00 [INF] HTTP GET /api/directorio/socio/techsolutions-honduras responded 200 in 115.0500 ms
+2026-02-13 09:06:16.642 -06:00 [INF] Log: "VisitaMicroSitio" | Query: null | SocioId: "37b9713f-4685-453b-9c2d-2f242e2c833c"
+2026-02-13 09:06:16.645 -06:00 [INF] HTTP GET /api/directorio/socio/techsolutions-honduras responded 200 in 12.5054 ms
+2026-02-13 09:06:23.434 -06:00 [INF] HTTP GET /api/directorio/socio/cyberguard-hn responded 404 in 7.9141 ms
+2026-02-13 09:06:29.044 -06:00 [INF] HTTP GET /api/directorio/socio/cyberguard-hn responded 404 in 2.3709 ms
+2026-02-13 09:06:35.634 -06:00 [INF] Log: "EnvioFormulario" | Query: null | SocioId: "37b9713f-4685-453b-9c2d-2f242e2c833c"
+2026-02-13 09:06:35.637 -06:00 [INF] HTTP POST /api/formulariocontacto/37b9713f-4685-453b-9c2d-2f242e2c833c responded 200 in 44.3499 ms
+2026-02-13 09:08:53.451 -06:00 [INF] HTTP GET /api/directorio/especialidades responded 200 in 12.0274 ms
+2026-02-13 09:08:53.469 -06:00 [INF] HTTP GET /api/directorio responded 200 in 29.5762 ms
+2026-02-13 09:08:53.469 -06:00 [INF] HTTP GET /api/directorio/especialidades responded 200 in 2.2121 ms
+2026-02-13 09:08:53.486 -06:00 [INF] HTTP GET /api/directorio responded 200 in 3.7313 ms
+2026-02-13 09:08:56.557 -06:00 [INF] Log: "VisitaMicroSitio" | Query: null | SocioId: "e93fe064-3b55-4930-bbc8-04e71305ae2f"
+2026-02-13 09:08:56.560 -06:00 [INF] HTTP GET /api/directorio/socio/cloudnet-solutions responded 200 in 18.5657 ms
+2026-02-13 09:08:56.593 -06:00 [INF] Log: "VisitaMicroSitio" | Query: null | SocioId: "e93fe064-3b55-4930-bbc8-04e71305ae2f"
+2026-02-13 09:08:56.597 -06:00 [INF] HTTP GET /api/directorio/socio/cloudnet-solutions responded 200 in 11.0036 ms
+2026-02-13 09:09:29.805 -06:00 [INF] Log: "EnvioFormulario" | Query: null | SocioId: "e93fe064-3b55-4930-bbc8-04e71305ae2f"
+2026-02-13 09:09:29.808 -06:00 [INF] HTTP POST /api/formulariocontacto/e93fe064-3b55-4930-bbc8-04e71305ae2f responded 200 in 13.1681 ms
+2026-02-13 09:10:14.535 -06:00 [INF] HTTP GET /api/directorio/especialidades responded 200 in 29.9670 ms
+2026-02-13 09:10:42.106 -06:00 [INF] Log: "Login" | Query: null | SocioId: null
+2026-02-13 09:10:42.108 -06:00 [INF] HTTP POST /api/auth/login responded 200 in 156.2458 ms
+2026-02-13 09:10:42.147 -06:00 [INF] HTTP GET /api/reportes/dashboard responded 200 in 14.0657 ms
+2026-02-13 09:10:42.169 -06:00 [INF] HTTP GET /api/reportes/dashboard responded 200 in 9.3503 ms
+2026-02-13 09:10:48.473 -06:00 [INF] HTTP GET /api/socios responded 200 in 6.9749 ms
+2026-02-13 09:10:48.491 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.6132 ms
+2026-02-13 09:10:53.493 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.9737 ms
+2026-02-13 09:10:53.514 -06:00 [INF] HTTP GET /api/socios responded 200 in 3.8040 ms
+2026-02-13 09:10:53.523 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 33.2060 ms
+2026-02-13 09:10:53.549 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 3.6241 ms
+2026-02-13 09:10:59.864 -06:00 [INF] HTTP GET /api/socios responded 200 in 3.0335 ms
+2026-02-13 09:10:59.874 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.1569 ms
+2026-02-13 09:11:00.967 -06:00 [INF] HTTP GET /api/reportes/dashboard responded 200 in 8.5268 ms
+2026-02-13 09:11:00.983 -06:00 [INF] HTTP GET /api/reportes/dashboard responded 200 in 9.3532 ms
+2026-02-13 09:11:11.633 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.4364 ms
+2026-02-13 09:11:11.645 -06:00 [INF] HTTP GET /api/socios responded 200 in 3.1289 ms
+2026-02-13 09:11:12.463 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 2.9507 ms
+2026-02-13 09:11:12.481 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 3.6105 ms
+2026-02-13 09:11:12.505 -06:00 [INF] HTTP GET /api/socios responded 200 in 44.6885 ms
+2026-02-13 09:11:12.516 -06:00 [INF] HTTP GET /api/socios responded 200 in 3.6911 ms
+2026-02-13 09:11:42.010 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.8428 ms
+2026-02-13 09:11:42.023 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.7773 ms
+2026-02-13 09:11:42.549 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.8536 ms
+2026-02-13 09:11:42.550 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 2.2731 ms
+2026-02-13 09:11:42.559 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.6557 ms
+2026-02-13 09:11:42.559 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 1.7749 ms
+2026-02-13 09:11:44.027 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.6448 ms
+2026-02-13 09:11:44.040 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.1637 ms
+2026-02-13 09:13:32.353 -06:00 [INF] HTTP GET / responded 404 in 0.4124 ms
+2026-02-13 09:13:34.398 -06:00 [INF] HTTP GET / responded 404 in 0.2757 ms
+2026-02-13 09:13:36.647 -06:00 [INF] HTTP GET / responded 404 in 0.1566 ms
+2026-02-13 09:13:39.407 -06:00 [INF] HTTP GET /swagger responded 301 in 2.3577 ms
+2026-02-13 09:13:39.490 -06:00 [INF] HTTP GET /swagger/index.html responded 200 in 63.7243 ms
+2026-02-13 09:13:39.524 -06:00 [INF] HTTP GET /swagger/index.js responded 200 in 0.6089 ms
+2026-02-13 09:13:39.528 -06:00 [INF] HTTP GET /swagger/index.css responded 200 in 6.0957 ms
+2026-02-13 09:13:39.938 -06:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 149.3670 ms
+2026-02-13 09:16:34.869 -06:00 [INF] Log: "Login" | Query: null | SocioId: null
+2026-02-13 09:16:34.871 -06:00 [INF] HTTP POST /api/auth/login responded 200 in 197.1409 ms
+2026-02-13 09:16:34.971 -06:00 [INF] HTTP GET /api/reportes/dashboard responded 200 in 17.3905 ms
+2026-02-13 09:16:35.010 -06:00 [INF] HTTP GET /api/reportes/dashboard responded 200 in 9.5672 ms
+2026-02-13 09:16:41.557 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.9556 ms
+2026-02-13 09:16:41.589 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.2630 ms
+2026-02-13 09:16:42.933 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 5.4240 ms
+2026-02-13 09:16:42.934 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.7594 ms
+2026-02-13 09:16:42.962 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.4459 ms
+2026-02-13 09:16:42.975 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 4.9035 ms
+2026-02-13 09:16:57.214 -06:00 [INF] HTTP GET /swagger/index.html responded 200 in 0.3963 ms
+2026-02-13 09:16:57.258 -06:00 [INF] HTTP GET /swagger/index.js responded 200 in 0.9875 ms
+2026-02-13 09:16:57.373 -06:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 22.3062 ms
+2026-02-13 09:17:00.208 -06:00 [INF] HTTP GET / responded 404 in 0.1492 ms
+2026-02-13 09:17:21.121 -06:00 [INF] HTTP GET /api/directorio/especialidades responded 200 in 1.5983 ms
+2026-02-13 09:17:55.625 -06:00 [INF] HTTP GET /api/directorio responded 200 in 2.5607 ms
+2026-02-13 09:17:58.512 -06:00 [INF] Log: "Login" | Query: null | SocioId: null
+2026-02-13 09:17:58.513 -06:00 [INF] HTTP POST /api/auth/login responded 200 in 162.6583 ms
+2026-02-13 09:17:58.574 -06:00 [INF] HTTP GET /api/reportes/dashboard responded 200 in 15.1234 ms
+2026-02-13 09:17:58.608 -06:00 [INF] HTTP GET /api/reportes/dashboard responded 200 in 8.6334 ms
+2026-02-13 09:18:02.363 -06:00 [INF] HTTP GET /api/socios responded 200 in 7.6368 ms
+2026-02-13 09:18:02.456 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.0223 ms
+2026-02-13 09:18:06.660 -06:00 [INF] HTTP GET /api/socios responded 200 in 3.0946 ms
+2026-02-13 09:18:06.662 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 2.4823 ms
+2026-02-13 09:18:06.682 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.8546 ms
+2026-02-13 09:18:06.700 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 2.5260 ms
+2026-02-13 09:18:18.668 -06:00 [INF] HTTP DELETE /api/usuarios/1056071f-5533-4ab9-8762-f1a74fa6d83e responded 204 in 43.7420 ms
+2026-02-13 09:18:18.701 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.5641 ms
+2026-02-13 09:18:18.850 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 152.0354 ms
+2026-02-13 09:18:20.776 -06:00 [INF] HTTP DELETE /api/usuarios/0dc5c329-29a3-4e07-be27-53668be1fc8b responded 204 in 16.2819 ms
+2026-02-13 09:18:20.809 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.5657 ms
+2026-02-13 09:18:20.809 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 1.7006 ms
+2026-02-13 09:18:23.616 -06:00 [INF] HTTP DELETE /api/usuarios/217c9191-fb2a-4068-8f5b-44c7430fd5ea responded 204 in 5.4635 ms
+2026-02-13 09:18:23.641 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.4895 ms
+2026-02-13 09:18:23.641 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 1.4913 ms
+2026-02-13 09:18:25.477 -06:00 [INF] HTTP DELETE /api/usuarios/7c4fb017-52be-462d-95ec-e58ae2da84d4 responded 204 in 3.1476 ms
+2026-02-13 09:18:25.505 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 1.3755 ms
+2026-02-13 09:18:25.505 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.5169 ms
+2026-02-13 09:18:27.239 -06:00 [INF] HTTP DELETE /api/usuarios/39853e6c-ac2a-4dcf-8a86-dd13682662d2 responded 204 in 9.8045 ms
+2026-02-13 09:18:27.268 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.9659 ms
+2026-02-13 09:18:27.268 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 1.9377 ms
+2026-02-13 09:18:29.735 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.9662 ms
+2026-02-13 09:18:29.754 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.7224 ms
+2026-02-13 09:18:37.102 -06:00 [INF] HTTP GET /api/socios/37b9713f-4685-453b-9c2d-2f242e2c833c responded 200 in 13.0875 ms
+2026-02-13 09:18:37.132 -06:00 [INF] HTTP GET /api/socios/37b9713f-4685-453b-9c2d-2f242e2c833c responded 200 in 1.8889 ms
+2026-02-13 09:20:50.079 -06:00 [INF] HTTP GET /api/directorio/especialidades responded 200 in 3.1439 ms
+2026-02-13 09:20:50.083 -06:00 [INF] HTTP GET /api/directorio responded 200 in 4.6865 ms
+2026-02-13 09:20:50.096 -06:00 [INF] HTTP GET /api/directorio responded 200 in 3.3984 ms
+2026-02-13 09:20:50.096 -06:00 [INF] HTTP GET /api/directorio/especialidades responded 200 in 1.4852 ms
+2026-02-13 09:20:55.101 -06:00 [INF] Log: "VisitaMicroSitio" | Query: null | SocioId: "e93fe064-3b55-4930-bbc8-04e71305ae2f"
+2026-02-13 09:20:55.104 -06:00 [INF] HTTP GET /api/directorio/socio/cloudnet-solutions responded 200 in 12.1248 ms
+2026-02-13 09:20:55.118 -06:00 [INF] Log: "VisitaMicroSitio" | Query: null | SocioId: "e93fe064-3b55-4930-bbc8-04e71305ae2f"
+2026-02-13 09:20:55.118 -06:00 [INF] HTTP GET /api/directorio/socio/cloudnet-solutions responded 200 in 4.1235 ms
+2026-02-13 09:21:08.702 -06:00 [INF] HTTP GET /api/directorio/especialidades responded 200 in 1.1537 ms
+2026-02-13 09:21:08.703 -06:00 [INF] HTTP GET /api/directorio responded 200 in 2.9363 ms
+2026-02-13 09:21:08.720 -06:00 [INF] HTTP GET /api/directorio/especialidades responded 200 in 3.2704 ms
+2026-02-13 09:21:08.720 -06:00 [INF] HTTP GET /api/directorio responded 200 in 3.7166 ms
+2026-02-13 09:21:09.361 -06:00 [INF] Log: "VisitaMicroSitio" | Query: null | SocioId: "2e2cfc51-db0c-4869-b899-ab4c8f6d4e6f"
+2026-02-13 09:21:09.363 -06:00 [INF] HTTP GET /api/directorio/socio/datacorp-centroamerica responded 200 in 10.3946 ms
+2026-02-13 09:21:09.381 -06:00 [INF] Log: "VisitaMicroSitio" | Query: null | SocioId: "2e2cfc51-db0c-4869-b899-ab4c8f6d4e6f"
+2026-02-13 09:21:09.382 -06:00 [INF] HTTP GET /api/directorio/socio/datacorp-centroamerica responded 200 in 6.7838 ms
+2026-02-13 09:21:38.805 -06:00 [INF] HTTP GET /api/directorio responded 200 in 44.6817 ms
+2026-02-13 09:21:38.816 -06:00 [INF] HTTP GET /api/directorio/especialidades responded 200 in 52.7350 ms
+2026-02-13 09:21:38.818 -06:00 [INF] HTTP GET /api/directorio responded 200 in 2.1050 ms
+2026-02-13 09:21:38.825 -06:00 [INF] HTTP GET /api/directorio/especialidades responded 200 in 1.2194 ms
+2026-02-13 09:21:41.792 -06:00 [INF] HTTP GET /api/directorio/especialidades responded 200 in 1.1593 ms
+2026-02-13 09:21:41.794 -06:00 [INF] HTTP GET /api/directorio responded 200 in 3.2366 ms
+2026-02-13 09:21:41.812 -06:00 [INF] HTTP GET /api/directorio/especialidades responded 200 in 2.3203 ms
+2026-02-13 09:21:41.814 -06:00 [INF] HTTP GET /api/directorio responded 200 in 4.0871 ms
+2026-02-13 09:21:42.999 -06:00 [INF] Log: "VisitaMicroSitio" | Query: null | SocioId: "2193a381-fa0f-4517-ba71-86840d8e5514"
+2026-02-13 09:21:43.001 -06:00 [INF] HTTP GET /api/directorio/socio/edutech-honduras responded 200 in 18.1760 ms
+2026-02-13 09:21:43.023 -06:00 [INF] Log: "VisitaMicroSitio" | Query: null | SocioId: "2193a381-fa0f-4517-ba71-86840d8e5514"
+2026-02-13 09:21:43.024 -06:00 [INF] HTTP GET /api/directorio/socio/edutech-honduras responded 200 in 8.4215 ms
+2026-02-13 09:23:03.847 -06:00 [INF] HTTP GET / responded 404 in 0.1877 ms
+2026-02-13 09:24:22.928 -06:00 [INF] Log: "CrudSocio" | Query: Editar: TechSolutions El Salvador | SocioId: null
+2026-02-13 09:24:22.931 -06:00 [INF] HTTP PUT /api/socios/37b9713f-4685-453b-9c2d-2f242e2c833c responded 200 in 55.7876 ms
+2026-02-13 09:24:22.972 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.9353 ms
+2026-02-13 09:24:23.005 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.6333 ms
+2026-02-13 09:24:26.440 -06:00 [INF] HTTP GET /api/socios/b9df8f66-5c8e-478a-b3e3-65ef9b9250af responded 200 in 2.9080 ms
+2026-02-13 09:24:26.465 -06:00 [INF] HTTP GET /api/socios/b9df8f66-5c8e-478a-b3e3-65ef9b9250af responded 200 in 1.9809 ms
+2026-02-13 09:24:48.710 -06:00 [INF] Log: "CrudSocio" | Query: Editar: CyberGuard SV | SocioId: null
+2026-02-13 09:24:48.714 -06:00 [INF] HTTP PUT /api/socios/b9df8f66-5c8e-478a-b3e3-65ef9b9250af responded 200 in 12.6904 ms
+2026-02-13 09:24:48.752 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.1076 ms
+2026-02-13 09:24:48.789 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.6160 ms
+2026-02-13 09:24:53.267 -06:00 [INF] HTTP GET /api/socios/2e2cfc51-db0c-4869-b899-ab4c8f6d4e6f responded 200 in 4.3002 ms
+2026-02-13 09:24:53.300 -06:00 [INF] HTTP GET /api/socios/2e2cfc51-db0c-4869-b899-ab4c8f6d4e6f responded 200 in 3.5534 ms
+2026-02-13 09:25:19.064 -06:00 [INF] Log: "CrudSocio" | Query: Editar: DataCorp Centroamérica | SocioId: null
+2026-02-13 09:25:19.067 -06:00 [INF] HTTP PUT /api/socios/2e2cfc51-db0c-4869-b899-ab4c8f6d4e6f responded 200 in 17.9132 ms
+2026-02-13 09:25:19.110 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.7201 ms
+2026-02-13 09:25:19.142 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.7473 ms
+2026-02-13 09:25:22.520 -06:00 [INF] HTTP GET /api/socios/2193a381-fa0f-4517-ba71-86840d8e5514 responded 200 in 3.2044 ms
+2026-02-13 09:25:22.550 -06:00 [INF] HTTP GET /api/socios/2193a381-fa0f-4517-ba71-86840d8e5514 responded 200 in 1.7728 ms
+2026-02-13 09:25:39.347 -06:00 [INF] Log: "CrudSocio" | Query: Editar: EduTech El Salvador | SocioId: null
+2026-02-13 09:25:39.350 -06:00 [INF] HTTP PUT /api/socios/2193a381-fa0f-4517-ba71-86840d8e5514 responded 200 in 12.1367 ms
+2026-02-13 09:25:39.395 -06:00 [INF] HTTP GET /api/socios responded 200 in 3.5325 ms
+2026-02-13 09:25:39.431 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.4789 ms
+2026-02-13 09:25:43.548 -06:00 [INF] HTTP GET /api/reportes/dashboard responded 200 in 13.6049 ms
+2026-02-13 09:25:43.574 -06:00 [INF] HTTP GET /api/reportes/dashboard responded 200 in 6.3014 ms
+2026-02-13 09:25:44.139 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.6215 ms
+2026-02-13 09:25:44.156 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.4763 ms
+2026-02-13 09:25:46.446 -06:00 [INF] HTTP GET /api/socios/e93fe064-3b55-4930-bbc8-04e71305ae2f responded 200 in 3.4713 ms
+2026-02-13 09:25:46.470 -06:00 [INF] HTTP GET /api/socios/e93fe064-3b55-4930-bbc8-04e71305ae2f responded 200 in 1.6328 ms
+2026-02-13 09:25:48.092 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.6345 ms
+2026-02-13 09:25:48.107 -06:00 [INF] HTTP GET /api/socios responded 200 in 1.9840 ms
+2026-02-13 09:25:50.036 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 2.0619 ms
+2026-02-13 09:25:50.036 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.2089 ms
+2026-02-13 09:25:50.054 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 2.0489 ms
+2026-02-13 09:25:50.059 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.0837 ms
+2026-02-13 09:43:10.824 -06:00 [INF] HTTP GET /api/socios responded 200 in 35.4367 ms
+2026-02-13 09:43:10.845 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.9080 ms
+2026-02-13 09:43:14.250 -06:00 [INF] HTTP GET /api/reportes/dashboard responded 200 in 14.7767 ms
+2026-02-13 09:43:14.272 -06:00 [INF] HTTP GET /api/reportes/dashboard responded 200 in 7.2802 ms
+2026-02-13 09:43:14.793 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.3316 ms
+2026-02-13 09:43:14.809 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.7385 ms
+2026-02-13 09:43:15.831 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.0943 ms
+2026-02-13 09:43:15.855 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.0948 ms
+2026-02-13 09:43:15.872 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 43.1434 ms
+2026-02-13 09:43:15.889 -06:00 [INF] HTTP GET /api/usuarios responded 200 in 1.7895 ms
+2026-02-13 09:43:17.640 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.4071 ms
+2026-02-13 09:43:17.660 -06:00 [INF] HTTP GET /api/socios responded 200 in 2.3056 ms
+2026-02-13 09:43:18.752 -06:00 [INF] HTTP GET /api/socios/e93fe064-3b55-4930-bbc8-04e71305ae2f responded 200 in 3.5448 ms
+2026-02-13 09:43:18.772 -06:00 [INF] HTTP GET /api/socios/e93fe064-3b55-4930-bbc8-04e71305ae2f responded 200 in 2.2036 ms

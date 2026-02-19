@@ -1,11 +1,13 @@
 using CasaticDirectorio.Domain.Entities;
+using CasaticDirectorio.Domain.Enums;
 
 namespace CasaticDirectorio.Domain.Interfaces;
 
 public interface ILogActividadRepository
 {
     Task AddAsync(LogActividad log);
-    Task<List<LogActividad>> GetRecentAsync(int count = 50);
-    Task<int> CountByTipoAsync(string tipo, DateTime? desde, DateTime hasta);
+    Task<List<LogActividad>> GetByTipoAsync(TipoEvento tipo, DateTime desde, DateTime hasta);
+    Task<int> CountByTipoAsync(TipoEvento tipo, DateTime desde, DateTime hasta);
+    Task<List<LogActividad>> GetBySocioAsync(Guid socioId, DateTime desde, DateTime hasta);
+    Task<Dictionary<string, int>> GetLoginsPorUsuarioAsync(DateTime desde, DateTime hasta);
 }
-

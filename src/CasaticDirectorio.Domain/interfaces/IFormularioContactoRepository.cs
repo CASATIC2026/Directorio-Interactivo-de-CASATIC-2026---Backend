@@ -1,11 +1,11 @@
 using CasaticDirectorio.Domain.Entities;
 
-namespace CasaticDirectorio.Domain.Interfaces
+namespace CasaticDirectorio.Domain.Interfaces;
+
+public interface IFormularioContactoRepository
 {
-    public interface IFormularioContactoRepository
-    {
-       Task<FormularioContacto> CreateAsync(FormularioContacto formulario);
-       Task<List<FormularioContacto>> GetBySocioAsync(Guid socioId);
-       Task<int> CountAsync(DateTime? desde = null);
-    }
+    Task AddAsync(FormularioContacto formulario);
+    Task<List<FormularioContacto>> GetBySocioAsync(Guid socioId);
+    Task<int> CountAsync(DateTime desde, DateTime hasta);
+    Task<List<FormularioContacto>> GetAllAsync(DateTime desde, DateTime hasta);
 }

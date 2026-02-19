@@ -1,0 +1,12 @@
+C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Domain\bin\Debug\net9.0\CasaticDirectorio.Domain.deps.json
+C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Domain\bin\Debug\net9.0\CasaticDirectorio.Domain.dll
+C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Domain\bin\Debug\net9.0\CasaticDirectorio.Domain.pdb
+C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Domain\obj\Debug\net9.0\CasaticDirectorio.Domain.csproj.AssemblyReference.cache
+C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Domain\obj\Debug\net9.0\CasaticDirectorio.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Domain\obj\Debug\net9.0\CasaticDirectorio.Domain.AssemblyInfoInputs.cache
+C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Domain\obj\Debug\net9.0\CasaticDirectorio.Domain.AssemblyInfo.cs
+C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Domain\obj\Debug\net9.0\CasaticDirectorio.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Domain\obj\Debug\net9.0\CasaticDirectorio.Domain.dll
+C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Domain\obj\Debug\net9.0\refint\CasaticDirectorio.Domain.dll
+C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Domain\obj\Debug\net9.0\CasaticDirectorio.Domain.pdb
+C:\Users\Grupo B\Desktop\casa\casatic-directorio\backend\src\CasaticDirectorio.Domain\obj\Debug\net9.0\ref\CasaticDirectorio.Domain.dll

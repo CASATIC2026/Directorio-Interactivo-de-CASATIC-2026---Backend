@@ -1,16 +1,14 @@
 namespace CasaticDirectorio.Domain.Enums;
 
 /// <summary>
-/// Tipos de eventos que se registran en el log.
+/// Tipos de evento registrados en el log de actividad.
 /// </summary>
 public enum TipoEvento
 {
-    Visita,
-    Busqueda,
-    FormularioEnviado,
-    Login,
-    CambioPassword,
-    SocioCreado,
-    SocioEditado,
-    SocioDeshabilitado
+    Busqueda = 0,
+    VisitaMicroSitio = 1,
+    Login = 2,
+    EnvioFormulario = 3,
+    CambioPassword = 4,
+    CrudSocio = 5
 }

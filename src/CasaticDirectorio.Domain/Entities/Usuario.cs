@@ -3,21 +3,27 @@ using CasaticDirectorio.Domain.Enums;
 namespace CasaticDirectorio.Domain.Entities;
 
 /// <summary>
-/// Usuario del backoffice del directorio(administrador o socio).
+/// Entidad de usuario del sistema (admin o socio).
+/// El primer login fuerza cambio de contraseña.
 /// </summary>
 public class Usuario
 {
     public Guid Id { get; set; }
-    public string Email { get; set; }
-    public string PasswordHash { get; set; }
-    public Rol Rol { get; set; } = Rol.Socio;
-    public bool Activo { get; set; } = true;
+    public string Email { get; set; } = string.Empty;
+    public string PasswordHash { get; set; } = string.Empty;
+    public Rol Rol { get; set; }
 
     /// <summary>
-/// si true, al proximo login se fuerza el cambio de contraseña.
-/// </summary>
-public bool PrimerLogin { get; set; } = true;
-public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    /// Indica si el usuario aún no ha cambiado su contraseña genérica.
+    /// </summary>
+    public bool PrimerLogin { get; set; } = true;
 
+    public bool Activo { get; set; } = true;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    /// <summary>
+    /// Relación opcional con Socio (solo para rol Socio).
+    /// </summary>
+    public Guid? SocioId { get; set; }
+    public Socio? Socio { get; set; }
 }
-
