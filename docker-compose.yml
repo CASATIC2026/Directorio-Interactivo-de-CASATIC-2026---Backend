@@ -1,0 +1,56 @@
+# ══════════════════════════════════════════════════════════════
+# docker-compose.yml — Directorio Interactivo CASATIC 2026
+# Levanta: PostgreSQL + API .NET 8 + Frontend React
+# ══════════════════════════════════════════════════════════════
+version: "3.9"
+
+services:
+  # ── PostgreSQL ──────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: casatic-db
+    environment:
+      POSTGRES_USER: casatic
+      POSTGRES_PASSWORD: casatic2026
+      POSTGRES_DB: casatic_directorio
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U casatic -d casatic_directorio"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ── Backend API (.NET 8) ────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: casatic-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=casatic_directorio;Username=casatic;Password=casatic2026"
+      Jwt__Key: "CASATIC-2026-Docker-SecretKey-Cambiame-En-Produccion-!@#"
+      Jwt__Issuer: "CasaticDirectorio"
+      Jwt__Audience: "CasaticDirectorioClients"
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # ── Frontend React ──────────────────────────────────────
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: casatic-web
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
