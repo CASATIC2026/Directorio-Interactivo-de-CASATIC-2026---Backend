@@ -21,7 +21,7 @@ public class SocioRepository : ISocioRepository
     /// y filtro opcional por especialidad.
     /// </summary>
     public async Task<(List<Socio> Items, int Total)> SearchAsync(
-        string? query, string? especialidad, string? servicio, int page, int pageSize)
+        string? query, string? especialidad, string? servicio, string? producto, int page, int pageSize)
     {
         var q = _db.Socios.AsQueryable();
 
@@ -45,6 +45,13 @@ public class SocioRepository : ISocioRepository
         if (!string.IsNullOrWhiteSpace(servicio))
         {
             q = q.Where(s => s.Servicios.Contains(servicio));
+        }
+
+        // Filtro por producto/marca representada (texto libre)
+        if (!string.IsNullOrWhiteSpace(producto))
+        {
+            var pattern = $"%{producto.Trim()}%";
+            q = q.Where(s => EF.Functions.ILike(s.MarcasRepresenta, pattern));
         }
 
         var total = await q.CountAsync();

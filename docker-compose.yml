@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: casatic-db
+    environment:
+      POSTGRES_USER: casatic
+      POSTGRES_PASSWORD: casatic2026
+      POSTGRES_DB: casatic_directorio
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U casatic -d casatic_directorio"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: casatic-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=casatic_directorio;Username=casatic;Password=casatic2026"
+      Jwt__Key: "CASATIC-2026-Docker-SecretKey-Cambiame-En-Produccion-!@#"
+      Jwt__Issuer: "CasaticDirectorio"
+      Jwt__Audience: "CasaticDirectorioClients"
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

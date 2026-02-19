@@ -17,6 +17,11 @@ public class DirectorioFilterDto
     /// </summary>
     public string? Servicio { get; set; }
 
+    /// <summary>
+    /// Filtrar por producto/marca representada.
+    /// </summary>
+    public string? Producto { get; set; }
+
     public int Page { get; set; } = 1;
     public int PageSize { get; set; } = 12;
 }

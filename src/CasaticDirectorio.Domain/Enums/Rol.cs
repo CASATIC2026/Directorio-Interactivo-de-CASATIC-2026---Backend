@@ -6,5 +6,6 @@ namespace CasaticDirectorio.Domain.Enums;
 public enum Rol
 {
     Admin = 0,
-    Socio = 1
+    Usuario = 1,
+    Socio = 2
 }

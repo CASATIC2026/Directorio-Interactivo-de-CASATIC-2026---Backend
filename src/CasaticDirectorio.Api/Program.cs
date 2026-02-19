@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using CasaticDirectorio.Api.Middleware;
 
 // ══════════════════════════════════════════════════════════════
 // Program.cs — Directorio Interactivo CASATIC 2026
@@ -58,6 +59,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 builder.Services.AddAuthorization();
+builder.Services.AddHealthChecks();
 
 // ── Controllers ──────────────────────────────────────────────
 builder.Services.AddControllers();
@@ -138,6 +140,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 // ── Middleware Pipeline ──────────────────────────────────────
+app.UseMiddleware<ApiExceptionMiddleware>();
 app.UseSerilogRequestLogging();
 
 app.UseSwagger();
@@ -147,6 +150,7 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapHealthChecks("/health");
 
 Log.Information("🚀 Directorio Interactivo CASATIC 2026 iniciado");
 app.Run();
