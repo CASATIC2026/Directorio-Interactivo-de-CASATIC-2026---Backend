@@ -1,9 +1,7 @@
 # ══════════════════════════════════════════════════════════════
 # docker-compose.yml — Directorio Interactivo CASATIC 2026
-# Levanta: PostgreSQL + API .NET 8 + Frontend React
+# Levanta: PostgreSQL + API .NET 8
 # ══════════════════════════════════════════════════════════════
-version: "3.9"
-
 services:
   # ── PostgreSQL ──────────────────────────────────────────
   db:
@@ -41,14 +39,14 @@ services:
       db:
         condition: service_healthy
 
-  # ── Frontend React ──────────────────────────────────────
-  web:
+  # ── Frontend React (Nginx) ──────────────────────────────
+  frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: casatic-web
+    container_name: casatic-frontend
     ports:
-      - "3000:80"
+      - "80:80"
     depends_on:
       - api
 
