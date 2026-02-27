@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using CasaticDirectorio.Infrastructure.Data;
@@ -7,6 +8,7 @@ namespace CasaticDirectorio.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin")]
     public class EstadisticasController : ControllerBase
     {
         private readonly AppDbContext _context;

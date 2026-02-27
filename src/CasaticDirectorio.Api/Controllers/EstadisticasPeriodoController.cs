@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace CasaticDirectorio.Api.Controllers
 {
     [ApiController]
     [Route("api/estadisticas/periodo")]
+    [Authorize(Roles = "Admin")]
     public class EstadisticasPeriodoController : ControllerBase
     {
         private readonly AppDbContext _context;

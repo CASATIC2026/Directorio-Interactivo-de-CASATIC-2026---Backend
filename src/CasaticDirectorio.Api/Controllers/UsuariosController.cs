@@ -100,6 +100,9 @@ public class UsuariosController : ControllerBase
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
+        var usuario = await _usuarios.GetByIdAsync(id);
+        if (usuario == null) return NotFound(new { message = "Usuario no encontrado" });
+
         await _usuarios.DeleteAsync(id);
         return NoContent();
     }

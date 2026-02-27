@@ -25,20 +25,24 @@ public class SocioRepository : ISocioRepository
     {
         var q = _db.Socios.AsQueryable();
 
-        // Solo mostrar socios habilitados y al día en el portal público
-        q = q.Where(s => s.Habilitado && s.EstadoFinanciero == Domain.Enums.EstadoFinanciero.AlDia);
+        // Solo mostrar socios habilitados en el portal público
+        q = q.Where(s => s.Habilitado);
+
+        // Filtro por estado financiero (por defecto solo AlDia, salvo que se indique otro)
+        if (!string.IsNullOrWhiteSpace(estado))
+        {
+            if (Enum.TryParse<Domain.Enums.EstadoFinanciero>(estado, out var estadoFinanciero))
+                q = q.Where(s => s.EstadoFinanciero == estadoFinanciero);
+        }
+        else
+        {
+            q = q.Where(s => s.EstadoFinanciero == Domain.Enums.EstadoFinanciero.AlDia);
+        }
 
         // Filtro por sector
         if (!string.IsNullOrWhiteSpace(sector))
         {
             q = q.Where(s => s.Especialidades.Contains(sector));
-        }
-
-        // Filtro por estado financiero
-        if (!string.IsNullOrWhiteSpace(estado))
-        {
-            if (Enum.TryParse<Domain.Enums.EstadoFinanciero>(estado, out var estadoFinanciero))
-                q = q.Where(s => s.EstadoFinanciero == estadoFinanciero);
         }
 
         // Filtro por fechas

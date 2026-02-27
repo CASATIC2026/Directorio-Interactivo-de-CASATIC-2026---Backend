@@ -3,6 +3,7 @@ using CasaticDirectorio.Api.Services;
 using CasaticDirectorio.Domain.Entities;
 using CasaticDirectorio.Domain.Enums;
 using CasaticDirectorio.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CasaticDirectorio.Api.Controllers;
@@ -64,6 +65,7 @@ public class FormularioContactoController : ControllerBase
     /// <summary>
     /// Listar formularios recibidos por un socio (admin).
     /// </summary>
+    [Authorize(Roles = "Admin")]
     [HttpGet("socio/{socioId:guid}")]
     public async Task<IActionResult> GetBySocio(Guid socioId)
     {

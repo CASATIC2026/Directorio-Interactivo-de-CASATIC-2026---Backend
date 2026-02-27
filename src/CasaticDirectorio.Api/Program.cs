@@ -62,7 +62,12 @@ builder.Services.AddAuthorization();
 builder.Services.AddHealthChecks();
 
 // ── Controllers ──────────────────────────────────────────────
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(opts =>
+    {
+        opts.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+        opts.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+    });
 
 // ── Swagger / OpenAPI ────────────────────────────────────────
 builder.Services.AddEndpointsApiExplorer();

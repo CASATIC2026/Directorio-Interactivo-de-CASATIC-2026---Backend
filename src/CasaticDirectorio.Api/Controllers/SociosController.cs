@@ -6,6 +6,8 @@ using CasaticDirectorio.Domain.Enums;
 using CasaticDirectorio.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CasaticDirectorio.Api.Controllers;
 
@@ -74,7 +76,7 @@ public class SociosController : ControllerBase
 
         // Auto-generar slug si viene vacío
         if (string.IsNullOrWhiteSpace(socio.Slug))
-            socio.Slug = dto.NombreEmpresa.ToLower().Replace(" ", "-").Replace(".", "");
+            socio.Slug = GenerarSlug(dto.NombreEmpresa);
 
         // Verificar slug duplicado
         var existing = await _socios.GetBySlugAsync(socio.Slug);
@@ -169,5 +171,38 @@ public class SociosController : ControllerBase
         await _socios.UpdateAsync(socio);
 
         return Ok(new { EstadoFinanciero = socio.EstadoFinanciero.ToString(), socio.Habilitado });
+    }
+
+    /// <summary>
+    /// Genera un slug URL-seguro eliminando tildes, ñ y caracteres especiales.
+    /// Ejemplo: "Técnica & Soluciones S.A." → "tecnica-soluciones-sa"
+    /// </summary>
+    private static string GenerarSlug(string texto)
+    {
+        // Normalizar a forma D (separa letras de sus diacríticos)
+        var normalizado = texto.Normalize(NormalizationForm.FormD);
+
+        // Eliminar marcas diacríticas (tildes, etc.)
+        var sb = new StringBuilder();
+        foreach (var c in normalizado)
+        {
+            var cat = System.Globalization.CharUnicodeInfo.GetUnicodeCategory(c);
+            if (cat != System.Globalization.UnicodeCategory.NonSpacingMark)
+                sb.Append(c);
+        }
+
+        var slug = sb.ToString().Normalize(NormalizationForm.FormC).ToLowerInvariant();
+
+        // Reemplazar ñ (ya normalizada a n + tilde → queda 'n', ok)
+        // Reemplazar espacios y separadores por guión
+        slug = Regex.Replace(slug, @"[\s\-]+", "-");
+
+        // Eliminar caracteres no alfanuméricos ni guiones
+        slug = Regex.Replace(slug, @"[^a-z0-9\-]", "");
+
+        // Eliminar guiones al inicio o fin
+        slug = slug.Trim('-');
+
+        return slug;
     }
 }
