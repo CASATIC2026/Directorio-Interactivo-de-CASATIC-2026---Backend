@@ -22,6 +22,26 @@ public class DirectorioFilterDto
     /// </summary>
     public string? Producto { get; set; }
 
+    /// <summary>
+    /// Filtrar por sector.
+    /// </summary>
+    public string? Sector { get; set; }
+
+    /// <summary>
+    /// Filtrar por estado financiero.
+    /// </summary>
+    public string? Estado { get; set; }
+
+    /// <summary>
+    /// Filtrar por fecha de creación (desde).
+    /// </summary>
+    public DateTime? FechaDesde { get; set; }
+
+    /// <summary>
+    /// Filtrar por fecha de creación (hasta).
+    /// </summary>
+    public DateTime? FechaHasta { get; set; }
+
     public int Page { get; set; } = 1;
     public int PageSize { get; set; } = 12;
 }

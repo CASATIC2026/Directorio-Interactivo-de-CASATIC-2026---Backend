@@ -71,6 +71,16 @@ public class SociosController : ControllerBase
 
         var socio = _mapper.Map<Socio>(dto);
         socio.Id = Guid.NewGuid();
+
+        // Auto-generar slug si viene vacío
+        if (string.IsNullOrWhiteSpace(socio.Slug))
+            socio.Slug = dto.NombreEmpresa.ToLower().Replace(" ", "-").Replace(".", "");
+
+        // Verificar slug duplicado
+        var existing = await _socios.GetBySlugAsync(socio.Slug);
+        if (existing != null)
+            return Conflict(new { message = $"Ya existe un socio con el slug '{socio.Slug}'" });
+
         await _socios.AddAsync(socio);
 
         await _logService.RegistrarAsync(TipoEvento.CrudSocio, query: $"Crear: {socio.NombreEmpresa}");
@@ -149,12 +159,15 @@ public class SociosController : ControllerBase
         var socio = await _socios.GetByIdAsync(id);
         if (socio == null) return NotFound();
 
-        socio.EstadoFinanciero = Enum.Parse<EstadoFinanciero>(estado);
+        if (!Enum.TryParse<EstadoFinanciero>(estado, true, out var nuevoEstado))
+            return BadRequest(new { message = "Estado inválido. Use AlDia o EnMora" });
+
+        socio.EstadoFinanciero = nuevoEstado;
         if (socio.EstadoFinanciero == EstadoFinanciero.EnMora)
             socio.Habilitado = false;
 
         await _socios.UpdateAsync(socio);
 
-        return Ok(new { socio.EstadoFinanciero, socio.Habilitado });
+        return Ok(new { EstadoFinanciero = socio.EstadoFinanciero.ToString(), socio.Habilitado });
     }
 }

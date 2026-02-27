@@ -60,6 +60,11 @@ public class ReportesController : ControllerBase
         var sociosEnMora = await _db.Socios.CountAsync(s =>
             s.EstadoFinanciero == EstadoFinanciero.EnMora);
 
+        // Socios del mes anterior
+        var inicioMesAnterior = inicioMes.AddMonths(-1);
+        var finMesAnterior = inicioMes;
+        var sociosMesAnterior = await _db.Socios.CountAsync(s => s.CreatedAt >= inicioMesAnterior && s.CreatedAt < finMesAnterior);
+
         // Logins por usuario
         var loginsPorUsuario = await _logs.GetLoginsPorUsuarioAsync(inicioMes, ahora);
 
@@ -88,6 +93,7 @@ public class ReportesController : ControllerBase
             TotalSocios = totalSocios,
             SociosActivos = sociosActivos,
             SociosEnMora = sociosEnMora,
+            SociosMesAnterior = sociosMesAnterior,
             LoginsPorUsuario = loginsPorUsuario,
             VisitasDiarias = visitasDiarias
         });
