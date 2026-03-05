@@ -23,3 +23,7 @@ Thumbs.db
 
 # Docker
 docker-compose.override.yml
+
+# Git internos de subcarpetas
+**/.git_bak/
+schema.sql
