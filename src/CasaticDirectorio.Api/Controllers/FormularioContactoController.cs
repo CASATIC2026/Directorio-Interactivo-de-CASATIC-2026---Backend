@@ -5,6 +5,7 @@ using CasaticDirectorio.Domain.Enums;
 using CasaticDirectorio.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace CasaticDirectorio.Api.Controllers;
 
@@ -34,6 +35,7 @@ public class FormularioContactoController : ControllerBase
     /// POST /api/formulariocontacto/{socioId}
     /// </summary>
     [HttpPost("{socioId:guid}")]
+    [EnableRateLimiting("contacto")]
     public async Task<IActionResult> Enviar(Guid socioId, [FromBody] FormularioContactoDto dto)
     {
         var socio = await _socios.GetByIdAsync(socioId);
@@ -60,6 +62,44 @@ public class FormularioContactoController : ControllerBase
             userAgent: Request.Headers.UserAgent.ToString());
 
         return Ok(new { message = "Formulario enviado con éxito", id = formulario.Id });
+    }
+
+    /// <summary>
+    /// Listar TODOS los formularios de contacto recibidos (admin).
+    /// GET /api/formulariocontacto?desde=...&amp;hasta=...
+    /// </summary>
+    [Authorize(Roles = "Admin")]
+    [HttpGet]
+    public async Task<IActionResult> GetAll([FromQuery] DateTime? desde, [FromQuery] DateTime? hasta)
+    {
+        var ahora = DateTime.UtcNow;
+        var formularios = await _formularios.GetAllAsync(
+            desde ?? ahora.AddMonths(-1),
+            hasta ?? ahora.AddDays(1));
+
+        return Ok(formularios.Select(f => new
+        {
+            f.Id,
+            f.SocioId,
+            NombreEmpresa = f.Socio != null ? f.Socio.NombreEmpresa : string.Empty,
+            f.Nombre,
+            f.Correo,
+            f.Mensaje,
+            f.Fecha,
+            f.Leido
+        }));
+    }
+
+    /// <summary>
+    /// Marcar formulario como leído / no leído (admin).
+    /// PATCH /api/formulariocontacto/{id}/leido
+    /// </summary>
+    [Authorize(Roles = "Admin")]
+    [HttpPatch("{id:guid}/leido")]
+    public async Task<IActionResult> MarcarLeido(Guid id, [FromBody] bool leido)
+    {
+        await _formularios.MarcarLeidoAsync(id, leido);
+        return NoContent();
     }
 
     /// <summary>

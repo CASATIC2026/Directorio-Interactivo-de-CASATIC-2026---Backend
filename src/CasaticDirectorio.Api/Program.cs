@@ -1,11 +1,14 @@
 using System.Text;
+using System.Threading.RateLimiting;
 using CasaticDirectorio.Api.Mapping;
 using CasaticDirectorio.Api.Services;
+using CasaticDirectorio.Domain.Enums;
 using CasaticDirectorio.Domain.Interfaces;
 using CasaticDirectorio.Infrastructure.Data;
 using CasaticDirectorio.Infrastructure.Data.Seed;
 using CasaticDirectorio.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -109,10 +112,37 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "http://localhost:3000", "http://localhost:80")
+        policy.WithOrigins(
+                "http://localhost:5173", "http://localhost:5174",
+                "http://localhost:5175", "http://localhost:3000",
+                "http://localhost:80")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
+});
+
+// ── Rate Limiting (protección contra abuso) ──────────────────
+builder.Services.AddRateLimiter(rl =>
+{
+    // Formularios de contacto: máx 5 por IP por minuto
+    rl.AddFixedWindowLimiter("contacto", options =>
+    {
+        options.Window = TimeSpan.FromMinutes(1);
+        options.PermitLimit = 5;
+        options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        options.QueueLimit = 0;
+    });
+
+    // Login: máx 10 intentos por IP por minuto (anti-brute-force)
+    rl.AddFixedWindowLimiter("auth", options =>
+    {
+        options.Window = TimeSpan.FromMinutes(1);
+        options.PermitLimit = 10;
+        options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        options.QueueLimit = 0;
+    });
+
+    rl.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 });
 
 var app = builder.Build();
@@ -141,6 +171,46 @@ using (var scope = app.Services.CreateScope())
         ADD COLUMN IF NOT EXISTS ""MarcasRepresenta"" text NOT NULL DEFAULT '';
     ");
 
+    await db.Database.ExecuteSqlRawAsync(@"
+        ALTER TABLE IF EXISTS ""FormulariosContacto""
+        ADD COLUMN IF NOT EXISTS ""Leido"" boolean NOT NULL DEFAULT false;
+    ");
+
+    // ── Limpieza de datos demo (se ejecuta una sola vez) ─────
+    // Detecta los slugs de ejemplo del seeder anterior y los borra.
+    // Una vez eliminados, este bloque queda inactivo para siempre.
+    var slugsDemo = new[]
+    {
+        "applaudo-studios-el-salvador",
+        "elaniin-el-salvador",
+        "tigo-el-salvador",
+        "claro-el-salvador",
+        "gbm-el-salvador"
+    };
+
+    if (await db.Socios.AnyAsync(s => slugsDemo.Contains(s.Slug)))
+    {
+        // Borrar logs y formularios de demo
+        db.LogsActividad.RemoveRange(db.LogsActividad);
+        db.FormulariosContacto.RemoveRange(db.FormulariosContacto);
+        await db.SaveChangesAsync();
+
+        // Borrar usuarios no administradores
+        var usuariosDemo = await db.Usuarios
+            .Where(u => u.Rol != Rol.Admin)
+            .ToListAsync();
+        db.Usuarios.RemoveRange(usuariosDemo);
+
+        // Borrar socios demo (cascade elimina sus formularios)
+        var sociosDemo = await db.Socios
+            .Where(s => slugsDemo.Contains(s.Slug))
+            .ToListAsync();
+        db.Socios.RemoveRange(sociosDemo);
+
+        await db.SaveChangesAsync();
+        Log.Information("✅ Datos demo eliminados. La base de datos está lista para socios reales.");
+    }
+
     await DataSeeder.SeedAsync(db);
 }
 
@@ -152,6 +222,7 @@ app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CASATIC API v1"));
 
 app.UseCors("AllowFrontend");
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

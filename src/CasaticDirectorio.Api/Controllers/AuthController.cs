@@ -5,6 +5,7 @@ using CasaticDirectorio.Domain.Enums;
 using CasaticDirectorio.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace CasaticDirectorio.Api.Controllers;
 
@@ -30,6 +31,7 @@ public class AuthController : ControllerBase
     /// Iniciar sesión. Retorna JWT y flag de primer login.
     /// </summary>
     [HttpPost("login")]
+    [EnableRateLimiting("auth")]
     public async Task<IActionResult> Login([FromBody] LoginRequest req)
     {
         var usuario = await _usuarios.GetByEmailAsync(req.Email);

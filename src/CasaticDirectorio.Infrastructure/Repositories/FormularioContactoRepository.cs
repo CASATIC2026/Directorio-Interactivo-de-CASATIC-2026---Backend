@@ -32,4 +32,14 @@ public class FormularioContactoRepository : IFormularioContactoRepository
             .Where(f => f.Fecha >= desde && f.Fecha <= hasta)
             .OrderByDescending(f => f.Fecha)
             .ToListAsync();
+
+    public async Task MarcarLeidoAsync(Guid id, bool leido)
+    {
+        var formulario = await _db.FormulariosContacto.FindAsync(id);
+        if (formulario != null)
+        {
+            formulario.Leido = leido;
+            await _db.SaveChangesAsync();
+        }
+    }
 }
