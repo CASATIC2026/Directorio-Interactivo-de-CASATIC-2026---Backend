@@ -12,6 +12,7 @@ public class DashboardDto
     public int TotalSocios { get; set; }
     public int SociosActivos { get; set; }
     public int SociosEnMora { get; set; }
+    public int SociosMesAnterior { get; set; }
     public Dictionary<string, int> LoginsPorUsuario { get; set; } = new();
     public List<VisitaDiariaDto> VisitasDiarias { get; set; } = new();
 }

@@ -21,18 +21,45 @@ public class SocioRepository : ISocioRepository
     /// y filtro opcional por especialidad.
     /// </summary>
     public async Task<(List<Socio> Items, int Total)> SearchAsync(
-        string? query, string? especialidad, string? servicio, int page, int pageSize)
+        string? query, string? especialidad, string? servicio, string? producto, string? sector, string? estado, DateTime? fechaDesde, DateTime? fechaHasta, int page, int pageSize)
     {
         var q = _db.Socios.AsQueryable();
 
-        // Solo mostrar socios habilitados y al día en el portal público
-        q = q.Where(s => s.Habilitado && s.EstadoFinanciero == Domain.Enums.EstadoFinanciero.AlDia);
+        // Solo mostrar socios habilitados en el portal público
+        q = q.Where(s => s.Habilitado);
+
+        // Filtro por estado financiero (por defecto solo AlDia, salvo que se indique otro)
+        if (!string.IsNullOrWhiteSpace(estado))
+        {
+            if (Enum.TryParse<Domain.Enums.EstadoFinanciero>(estado, out var estadoFinanciero))
+                q = q.Where(s => s.EstadoFinanciero == estadoFinanciero);
+        }
+        else
+        {
+            q = q.Where(s => s.EstadoFinanciero == Domain.Enums.EstadoFinanciero.AlDia);
+        }
+
+        // Filtro por sector
+        if (!string.IsNullOrWhiteSpace(sector))
+        {
+            q = q.Where(s => s.Especialidades.Contains(sector));
+        }
+
+        // Filtro por fechas
+        if (fechaDesde.HasValue)
+        {
+            q = q.Where(s => s.CreatedAt >= fechaDesde.Value);
+        }
+        if (fechaHasta.HasValue)
+        {
+            q = q.Where(s => s.CreatedAt <= fechaHasta.Value);
+        }
 
         // Full-Text Search con índice GIN
         if (!string.IsNullOrWhiteSpace(query))
         {
-            var tsQuery = EF.Functions.ToTsQuery("spanish", string.Join(" & ", query.Trim().Split(' ')));
-            q = q.Where(s => s.SearchVector!.Matches(tsQuery));
+            var sanitized = query.Trim();
+            q = q.Where(s => s.SearchVector!.Matches(EF.Functions.PlainToTsQuery("spanish", sanitized)));
         }
 
         // Filtro por especialidad (ANY en el array PostgreSQL)
@@ -45,6 +72,13 @@ public class SocioRepository : ISocioRepository
         if (!string.IsNullOrWhiteSpace(servicio))
         {
             q = q.Where(s => s.Servicios.Contains(servicio));
+        }
+
+        // Filtro por producto/marca representada (texto libre)
+        if (!string.IsNullOrWhiteSpace(producto))
+        {
+            var pattern = $"%{producto.Trim()}%";
+            q = q.Where(s => EF.Functions.ILike(s.MarcasRepresenta, pattern));
         }
 
         var total = await q.CountAsync();

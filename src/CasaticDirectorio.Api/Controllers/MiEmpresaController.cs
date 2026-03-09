@@ -11,11 +11,11 @@ namespace CasaticDirectorio.Api.Controllers;
 
 /// <summary>
 /// Endpoints para que un socio gestione su propia empresa.
-/// Solo accesible por usuarios con rol Socio.
+/// Solo accesible por usuarios con rol Usuario (o Socio legado).
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Socio")]
+[Authorize(Roles = "Usuario,Socio")]
 public class MiEmpresaController : ControllerBase
 {
     private readonly ISocioRepository _socios;

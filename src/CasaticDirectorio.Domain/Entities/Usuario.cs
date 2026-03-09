@@ -3,7 +3,7 @@ using CasaticDirectorio.Domain.Enums;
 namespace CasaticDirectorio.Domain.Entities;
 
 /// <summary>
-/// Entidad de usuario del sistema (admin o socio).
+/// Entidad de usuario del sistema (admin o usuario de empresa).
 /// El primer login fuerza cambio de contraseña.
 /// </summary>
 public class Usuario
@@ -22,7 +22,7 @@ public class Usuario
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     /// <summary>
-    /// Relación opcional con Socio (solo para rol Socio).
+    /// Relación opcional con Socio (solo para rol Usuario/Socio legado).
     /// </summary>
     public Guid? SocioId { get; set; }
     public Socio? Socio { get; set; }

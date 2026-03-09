@@ -1,0 +1,15 @@
+# Build outputs
+**/bin/
+**/obj/
+
+# Logs
+src/CasaticDirectorio.Api/logs/
+*.log
+
+# IDE
+.vs/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db

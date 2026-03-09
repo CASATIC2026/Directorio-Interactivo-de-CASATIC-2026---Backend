@@ -17,4 +17,9 @@ public class FormularioContacto
     public string Correo { get; set; } = string.Empty;
     public string Mensaje { get; set; } = string.Empty;
     public DateTime Fecha { get; set; } = DateTime.UtcNow;
+
+    /// <summary>
+    /// Indica si el mensaje ya fue revisado desde el panel admin.
+    /// </summary>
+    public bool Leido { get; set; } = false;
 }

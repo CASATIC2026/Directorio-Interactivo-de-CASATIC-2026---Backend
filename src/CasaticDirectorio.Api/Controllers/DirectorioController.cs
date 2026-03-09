@@ -33,7 +33,16 @@ public class DirectorioController : ControllerBase
     public async Task<IActionResult> Search([FromQuery] DirectorioFilterDto filtro)
     {
         var (items, total) = await _socios.SearchAsync(
-            filtro.Query, filtro.Especialidad, filtro.Servicio, filtro.Page, filtro.PageSize);
+            filtro.Query,
+            filtro.Especialidad,
+            filtro.Servicio,
+            filtro.Producto,
+            filtro.Sector,
+            filtro.Estado,
+            filtro.FechaDesde,
+            filtro.FechaHasta,
+            filtro.Page,
+            filtro.PageSize);
 
         // Registrar búsqueda si hay query
         if (!string.IsNullOrWhiteSpace(filtro.Query))

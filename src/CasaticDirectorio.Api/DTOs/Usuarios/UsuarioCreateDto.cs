@@ -8,10 +8,10 @@ public class UsuarioCreateDto
     public string Email { get; set; } = string.Empty;
 
     [Required]
-    public string Rol { get; set; } = "Socio";
+    public string Rol { get; set; } = "Usuario";
 
     /// <summary>
-    /// Si el rol es Socio, se debe indicar el socio asociado.
+    /// Si el rol es Usuario (o Socio legado), se debe indicar el socio asociado.
     /// </summary>
     public Guid? SocioId { get; set; }
 }

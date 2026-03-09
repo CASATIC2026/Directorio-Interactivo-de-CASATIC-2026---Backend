@@ -53,12 +53,24 @@ public class UsuariosController : ControllerBase
         if (existing != null)
             return Conflict(new { message = "Ya existe un usuario con ese email" });
 
+        if (!Enum.TryParse<Rol>(dto.Rol, true, out var rol))
+            return BadRequest(new { message = "Rol inválido. Use Admin o Usuario" });
+
+        if (rol == Rol.Socio)
+            rol = Rol.Usuario;
+
+        if (rol == Rol.Usuario && dto.SocioId == null)
+            return BadRequest(new { message = "Para rol Usuario debe indicar SocioId" });
+
+        if (rol == Rol.Admin)
+            dto.SocioId = null;
+
         var usuario = new Usuario
         {
             Id = Guid.NewGuid(),
             Email = dto.Email,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword("Socio123!"),
-            Rol = Enum.Parse<Rol>(dto.Rol),
+            Rol = rol,
             PrimerLogin = true,
             Activo = true,
             SocioId = dto.SocioId
@@ -88,6 +100,9 @@ public class UsuariosController : ControllerBase
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
+        var usuario = await _usuarios.GetByIdAsync(id);
+        if (usuario == null) return NotFound(new { message = "Usuario no encontrado" });
+
         await _usuarios.DeleteAsync(id);
         return NoContent();
     }

@@ -7,7 +7,7 @@ public class SocioCreateDto
     [Required, MaxLength(300)]
     public string NombreEmpresa { get; set; } = string.Empty;
 
-    [Required, MaxLength(300)]
+    [MaxLength(300)]
     public string Slug { get; set; } = string.Empty;
 
     public string Descripcion { get; set; } = string.Empty;
