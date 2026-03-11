@@ -1,4 +1,9 @@
+# ══════════════════════════════════════════════════════════════
+# docker-compose.yml — Backend CASATIC Directorio 2026
+# Levanta: PostgreSQL + API .NET + pgAdmin
+# ══════════════════════════════════════════════════════════════
 services:
+  # ── PostgreSQL ──────────────────────────────────────────
   db:
     image: postgres:16-alpine
     container_name: casatic-db
@@ -16,17 +21,19 @@ services:
       timeout: 5s
       retries: 10
 
+  # ── pgAdmin ─────────────────────────────────────────────
   pgadmin:
     image: dpage/pgadmin4:latest
-    container_name: casatic-pgadmin
+    container_name: pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@casatic.org
-      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_DEFAULT_PASSWORD: Admin123!
     ports:
-      - "5051:80"
+      - "5050:80"
     depends_on:
       - db
 
+  # ── Backend API (.NET) ──────────────────────────────────
   api:
     build:
       context: .

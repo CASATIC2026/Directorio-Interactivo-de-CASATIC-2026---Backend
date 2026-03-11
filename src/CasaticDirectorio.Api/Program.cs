@@ -19,6 +19,11 @@ using CasaticDirectorio.Api.Middleware;
 // Program.cs — Directorio Interactivo CASATIC 2026
 // ══════════════════════════════════════════════════════════════
 
+// Permitir DateTime sin Kind explícito en consultas EF Core / Npgsql.
+// ASP.NET model binding parsea query params como Kind=Unspecified;
+// esta opción evita el error « Cannot write DateTime with Kind=Unspecified ».
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var builder = WebApplication.CreateBuilder(args);
 
 // ── Serilog ──────────────────────────────────────────────────
