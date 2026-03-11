@@ -181,6 +181,11 @@ using (var scope = app.Services.CreateScope())
         ADD COLUMN IF NOT EXISTS ""Leido"" boolean NOT NULL DEFAULT false;
     ");
 
+    await db.Database.ExecuteSqlRawAsync(@"
+        ALTER TABLE IF EXISTS socios
+        ADD COLUMN IF NOT EXISTS ""EmailContacto"" text NOT NULL DEFAULT '';
+    ");
+
     // ── Limpieza de datos demo (se ejecuta una sola vez) ─────
     // Detecta los slugs de ejemplo del seeder anterior y los borra.
     // Una vez eliminados, este bloque queda inactivo para siempre.
@@ -218,6 +223,15 @@ using (var scope = app.Services.CreateScope())
 
     await DataSeeder.SeedAsync(db);
 }
+
+// ── Archivos estáticos (logos subidos) ───────────────────────
+var logosPath = Path.Combine(app.Environment.ContentRootPath, "wwwroot", "logos");
+Directory.CreateDirectory(logosPath);
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(logosPath),
+    RequestPath = "/logos"
+});
 
 // ── Middleware Pipeline ──────────────────────────────────────
 app.UseMiddleware<ApiExceptionMiddleware>();

@@ -14,4 +14,5 @@ public class SocioUpdateDto
     public string? MarcasRepresenta { get; set; }
     public string? EstadoFinanciero { get; set; }
     public bool? Habilitado { get; set; }
+    public string? EmailContacto { get; set; }
 }
