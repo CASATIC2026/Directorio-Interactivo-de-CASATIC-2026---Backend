@@ -38,6 +38,12 @@ public class Socio
     public string LogoUrl { get; set; } = string.Empty;
 
     /// <summary>
+    /// Correo electrónico de contacto de la empresa.
+    /// Se usa para enviar notificaciones de formularios de contacto.
+    /// </summary>
+    public string EmailContacto { get; set; } = string.Empty;
+
+    /// <summary>
     /// Marcas que representa el socio (máx. 50 palabras).
     /// </summary>
     public string MarcasRepresenta { get; set; } = string.Empty;
