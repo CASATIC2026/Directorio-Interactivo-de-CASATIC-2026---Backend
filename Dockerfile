@@ -3,14 +3,14 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copiar solución y proyectos
-COPY backend/CasaticDirectorio.sln .
-COPY backend/src/CasaticDirectorio.Domain/CasaticDirectorio.Domain.csproj src/CasaticDirectorio.Domain/
-COPY backend/src/CasaticDirectorio.Infrastructure/CasaticDirectorio.Infrastructure.csproj src/CasaticDirectorio.Infrastructure/
-COPY backend/src/CasaticDirectorio.Api/CasaticDirectorio.Api.csproj src/CasaticDirectorio.Api/
+COPY CasaticDirectorio.sln .
+COPY src/CasaticDirectorio.Domain/CasaticDirectorio.Domain.csproj src/CasaticDirectorio.Domain/
+COPY src/CasaticDirectorio.Infrastructure/CasaticDirectorio.Infrastructure.csproj src/CasaticDirectorio.Infrastructure/
+COPY src/CasaticDirectorio.Api/CasaticDirectorio.Api.csproj src/CasaticDirectorio.Api/
 
 RUN dotnet restore
 
-COPY backend/src/ src/
+COPY src/ src/
 WORKDIR /src/src/CasaticDirectorio.Api
 RUN dotnet publish -c Release -o /app/publish
 
