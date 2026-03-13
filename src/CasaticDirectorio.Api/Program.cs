@@ -177,8 +177,18 @@ using (var scope = app.Services.CreateScope())
     ");
 
     await db.Database.ExecuteSqlRawAsync(@"
-        ALTER TABLE IF EXISTS ""FormulariosContacto""
+        ALTER TABLE IF EXISTS formularios_contacto
         ADD COLUMN IF NOT EXISTS ""Leido"" boolean NOT NULL DEFAULT false;
+    ");
+
+    await db.Database.ExecuteSqlRawAsync(@"
+        ALTER TABLE IF EXISTS socios
+        ADD COLUMN IF NOT EXISTS ""EmailContacto"" text NOT NULL DEFAULT '';
+    ");
+
+    await db.Database.ExecuteSqlRawAsync(@"
+        ALTER TABLE IF EXISTS socios
+        ADD COLUMN IF NOT EXISTS ""MapaUrl"" text NOT NULL DEFAULT '';
     ");
 
     // ── Limpieza de datos demo (se ejecuta una sola vez) ─────
@@ -218,6 +228,15 @@ using (var scope = app.Services.CreateScope())
 
     await DataSeeder.SeedAsync(db);
 }
+
+// ── Archivos estáticos (logos subidos) ───────────────────────
+var logosPath = Path.Combine(app.Environment.ContentRootPath, "wwwroot", "logos");
+Directory.CreateDirectory(logosPath);
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(logosPath),
+    RequestPath = "/logos"
+});
 
 // ── Middleware Pipeline ──────────────────────────────────────
 app.UseMiddleware<ApiExceptionMiddleware>();
